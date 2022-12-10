@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="module"
+	client="site"
+	method="upgrade">
+	<name>qljdownloads</name>
+	<author>Mareike Riegel</author>
+	<creationDate>2015</creationDate>
+	<copyright>ql.de</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>mareike.riegel@ql.de</authorEmail>
+	<authorUrl>ql.de</authorUrl>
+	<version>1.0.0</version>
+	<description>MOD_QLJDOWNLOADS_XML_DESCRIPTION</description>
+	<updateservers>
+        <server type="extension" priority="1" name="qljdownloads - Updates">https://raw.githubusercontent.com/hoochicken/mod_qlform/main/_jupdate/mod_qljdownloads.xml</server>
+    </updateservers>
+	<files>
+		<filename module="mod_qljdownloads">mod_qljdownloads.php</filename>
+		<folder>_jupdate</folder>
+		<folder>css</folder>
+		<folder>js</folder>
+		<folder>language</folder>
+		<folder>tmpl</folder>
+		<folder>php</folder>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+		<filename>license.txt</filename>
+		<filename>mod_qljdownloads.xml</filename>
+	</files>
+	<media folder="media" destination="mod_qljdownloads">
+        <folder>css</folder>
+        <folder>js</folder>
+    </media>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.mod_qljdownloads.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.mod_qljdownloads.sys.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.mod_qljdownloads.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.mod_qljdownloads.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params" addfieldpath="/modules/mod_qljdownloads/php/fields" addrulepath="/modules/mod_qljdownloads/php/rules">
+            <fieldset name="basic">
+
+            </fieldset>
+
+			<fieldset
+				name="advanced">
+				<field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+
+				<field
+					name="moduleclass_sfx"
+					type="text"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+
+				<field
+					name="cache"
+					type="list"
+					default="1"
+					label="COM_MODULES_FIELD_CACHING_LABEL"
+					description="COM_MODULES_FIELD_CACHING_DESC">
+					<option
+						value="1">JGLOBAL_USE_GLOBAL</option>
+					<option
+						value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+
+				<field
+					name="cache_time"
+					type="text"
+					default="900"
+					label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+					description="COM_MODULES_FIELD_CACHE_TIME_DESC" />
+				<field
+					name="cachemode"
+					type="hidden"
+					default="static">
+					<option
+						value="static"></option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
