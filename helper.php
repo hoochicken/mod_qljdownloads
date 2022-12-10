@@ -44,6 +44,7 @@ class modQljdownloadsHelper
         $query->select('f.id, f.title, f.created, f.url_download, f.catid, c.title, c.cat_dir, c.alias');
         $query->from('#__jdownloads_files f');
         $query->where('f.published = 1');
+        $query->order('created DESC');
         if (0 < count($catId)) $query->where(sprintf('catid IN(%s)', implode(',', $catId)));
         // $query->where('f.publish_up = 1');
         // $query->where('f.publish_down = 1');

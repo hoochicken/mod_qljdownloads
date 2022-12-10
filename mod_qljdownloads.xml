@@ -44,7 +44,7 @@
 				<field
 						name="category_id"
 						type="sql"
-						query="SELECT id AS category_id, title FROM #__jdownloads_categories WHERE published=1"
+						query="SELECT id AS category_id, CONCAT(title,' (',id,')') AS title FROM #__jdownloads_categories WHERE published=1"
 						key_field="category_id"
 						value_field="title"
 						label="MOD_QLJDOWNLOADS_CATEGORY_LABEL"
