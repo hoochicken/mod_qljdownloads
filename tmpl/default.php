@@ -7,11 +7,25 @@
  */
 
 // no direct access
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die;
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-$wa->registerStyle('qljdownloads', 'mod_qlqljdownloads/styles.css');
+$wa->registerStyle('qljdownloads', 'mod_qljdownloads/styles.css');
 $wa->useStyle('qljdownloads');
+
+/** @var array $files [stClass] */
+/** @var stdClass $module  */
+/** @var string $jdownloads_root  */
 ?>
 
-<div class="qlqljdownloads" id="module<?php echo $module->id ?>">
+<div class="qljdownloads" id="module<?php echo $module->id ?>">
+    <?php foreach ($files as $file) : ?>
+        <div class="file">
+            <div class="title"><a href="<?php echo sprintf('%s/%s/%s', $jdownloads_root, $file->cat_dir, $file->url_download); ?>"><?php echo $file->title; ?></a></div>
+        </div>
+    <?php endforeach; ?>
+    <pre>
+        <?php print_r($files); ?>
+    </pre>
 </div>

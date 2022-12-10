@@ -41,6 +41,16 @@
 	<config>
 		<fields name="params" addfieldpath="/modules/mod_qljdownloads/php/fields" addrulepath="/modules/mod_qljdownloads/php/rules">
             <fieldset name="basic">
+				<field
+						name="category_id"
+						type="sql"
+						query="SELECT id AS category_id, title FROM #__jdownloads_categories WHERE published=1"
+						key_field="category_id"
+						value_field="title"
+						label="MOD_QLJDOWNLOADS_CATEGORY_LABEL"
+						description="MOD_QLJDOWNLOADS_CATEGORY_DESC">
+					<option value="0">JALL</option>
+				</field>
 
             </fieldset>
 
@@ -51,6 +61,12 @@
 					type="modulelayout"
 					label="JFIELD_ALT_LAYOUT_LABEL"
 					description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+
+				<field
+					name="jdownloads_root"
+					label="MOD_QLJDOWNLOADS_ROOT_LABEL"
+					default="/jdownloads"
+					description="MOD_QLJDOWNLOADS_ROOT_DESC" />
 
 				<field
 					name="moduleclass_sfx"
