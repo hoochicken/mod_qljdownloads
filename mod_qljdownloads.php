@@ -13,11 +13,18 @@ defined('_JEXEC') or die;
 /** @var $module */
 /** @var $params */
 require_once dirname(__FILE__) . '/helper.php';
-$obj_helper = new modQljdownloadsHelper($module, $params, \Joomla\CMS\Factory::getContainer()->get(DatabaseDriver::class));
+$helper = new modQljdownloadsHelper($module, $params, \Joomla\CMS\Factory::getContainer()->get(DatabaseDriver::class));
 
-// $categories = $obj_helper->getJdownloadsCategories();
+// $categories = $helper->getJdownloadsCategories();
 $catedoryId = (int)$params->get('category_id', 0);
-$files = $obj_helper->getJdownloadsArticles($catedoryId);
+
+if ((bool) $params->get('get_category_id_by_input', false)) {
+    $param_name = $params->get('param_name', '');
+    $catedoryIdInput = $helper->getCategoryIdByInput(\Joomla\CMS\Factory::$application->getInput(), $param_name);
+    if (!empty($catedoryIdInput)) $catedoryId = $catedoryIdInput;
+}
+
+$files = $helper->getJdownloadsArticles($catedoryId);
 $jdownloads_root = $params->get('jdownloads_root', '/jdownloads');
 
 require JModuleHelper::getLayoutPath('mod_qljdownloads', $params->get('layout', 'default'));

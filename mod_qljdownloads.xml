@@ -51,7 +51,40 @@
 						description="MOD_QLJDOWNLOADS_CATEGORY_DESC">
 					<option value="0">JALL</option>
 				</field>
-
+				<field
+						name="cat_show"
+						type="radio"
+						class="btn-group btn-group-yesno"
+						default="0"
+						label="MOD_QLJDOWNLOADS_CATEGORY_LABEL"
+						description="MOD_QLJDOWNLOADS_CATEGORY_DESC">
+					<option value="1">JSHOW</option>
+					<option value="0">JHIDE</option>
+				</field>
+				<field
+						name="cat_id_show"
+						type="radio"
+						class="btn-group btn-group-yesno"
+						default="0"
+						label="MOD_QLJDOWNLOADS_CATEGORYID_LABEL"
+						description="MOD_QLJDOWNLOADS_CATEGORYID_DESC">
+					<option value="1">JSHOW</option>
+					<option value="0">JHIDE</option>
+				</field>
+				<field
+						name="get_category_id_by_input"
+						type="radio"
+						class="btn-group btn-group-yesno"
+						default="0"
+						label="MOD_QLJDOWNLOADS_GETCATEGORYBYINPUT_LABEL"
+						description="MOD_QLJDOWNLOADS_GETCATEGORYBYINPUT_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+						name="param_name"
+						label="MOD_QLJDOWNLOADS_PARAMNAME_LABEL"
+						description="MOD_QLJDOWNLOADS_PARAMNAME_DESC" />
             </fieldset>
 
 			<fieldset

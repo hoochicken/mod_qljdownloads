@@ -8,6 +8,7 @@
 
 // no direct access
 use Joomla\Database\DatabaseDriver;
+use Joomla\Input\Input;
 
 defined('_JEXEC') or die;
 
@@ -41,16 +42,19 @@ class modQljdownloadsHelper
     {
         $catId = $this->cleanseAsArrayWithIntegers($catId);
         $query = $this->db->getQuery(true);
-        $query->select('f.id, f.title, f.created, f.url_download, f.catid, c.title, c.cat_dir, c.alias');
+        $query->select('f.id, f.title, f.created, f.url_download, f.catid AS cat_id, c.title AS cat_title, c.cat_dir, c.alias AS cat_alias');
         $query->from('#__jdownloads_files f');
         $query->where('f.published = 1');
         $query->order('created DESC');
         if (0 < count($catId)) $query->where(sprintf('catid IN(%s)', implode(',', $catId)));
-        // $query->where('f.publish_up = 1');
-        // $query->where('f.publish_down = 1');
         $query->leftJoin('#__jdownloads_categories c', 'c.id = f.catid');
         $this->db->setQuery($query);
         return $this->db->loadObjectList();
+    }
+
+    public function getCategoryIdByInput(Input $input, $param_name)
+    {
+        return $input->get($param_name);
     }
 
     private function cleanseAsArrayWithIntegers($value)

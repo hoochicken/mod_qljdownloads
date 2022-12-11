@@ -18,6 +18,7 @@ $wa->useStyle('qljdownloads');
 /** @var array $files [stClass] */
 /** @var stdClass $module */
 /** @var string $jdownloads_root */
+/** @var JRegistry $params */
 ?>
 
 <div class="qljdownloads" id="module<?php echo $module->id ?>">
@@ -26,6 +27,9 @@ $wa->useStyle('qljdownloads');
         <tr>
             <th>#</th>
             <th><?php echo Text::_('MOD_QLJDOWNLOADS_TITLE'); ?></th>
+            <?php if ((bool)$params->get('cat_id_show', 1)): ?>
+                <th><?php echo Text::_('MOD_QLJDOWNLOADS_CATEGORY'); ?></th>
+            <?php endif; ?>
             <th><?php echo Text::_('MOD_QLJDOWNLOADS_CREATED'); ?></th>
         </tr>
         </thead>
@@ -38,6 +42,9 @@ $wa->useStyle('qljdownloads');
                 <td><span class="title"><a
                                 href="<?php echo sprintf('%s/%s/%s', $jdownloads_root, $file->cat_dir, $file->url_download); ?>"
                                 target="_blank"><?php echo $file->title; ?></a></span></td>
+                <?php if ((bool)$params->get('cat_show', 1)): ?>
+                    <td><?php echo $file->cat_title; ?><?php echo (bool)$params->get('cat_id_show', 1) ? ' (' . $file->cat_id . ')' : ''; ?></td>
+                <?php endif; ?>
                 <td><?php echo $file->created; ?></td>
             </tr>
         <?php endforeach; ?>
