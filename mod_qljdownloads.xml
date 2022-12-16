@@ -10,7 +10,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>mareike.riegel@ql.de</authorEmail>
 	<authorUrl>ql.de</authorUrl>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<description>MOD_QLJDOWNLOADS_XML_DESCRIPTION</description>
 	<updateservers>
         <server type="extension" priority="1" name="qljdownloads - Updates">https://raw.githubusercontent.com/hoochicken/mod_qlform/main/_jupdate/mod_qljdownloads.xml</server>
