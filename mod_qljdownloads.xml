@@ -99,12 +99,6 @@
 			</fieldset>
 			<fieldset name="file">
 				<field
-						name="file_id_manual"
-						label="MOD_QLJDOWNLOADS_FILEIDMANUAL_LABEL"
-						description="MOD_QLJDOWNLOADS_FILEIDMANUAL_DESC"
-						default="0"
-				/>
-				<field
 						name="file_id_by_list"
 						type="sql"
 						query="SELECT f.id AS file_id, CONCAT(f.title,' (',f.id,' - ',c.title, '#', c.id ,')') AS title FROM #__jdownloads_files f LEFT JOIN #__jdownloads_categories c ON f.catid = c.id WHERE f.published=1 AND c.published=1"
@@ -114,6 +108,12 @@
 						description="MOD_QLJDOWNLOADS_FILEIDBYLIST_DESC">
 					<option value="">MOD_QLJDOWNLOADS_SELECTMANUALLY</option>
 				</field>
+				<field
+						name="file_id_manual"
+						label="MOD_QLJDOWNLOADS_FILEIDMANUAL_LABEL"
+						description="MOD_QLJDOWNLOADS_FILEIDMANUAL_DESC"
+						default="0"
+				/>
 			</fieldset>
 			<fieldset name="category">
 				<field
