@@ -27,7 +27,7 @@ $wa->useStyle('qljdownloads');
         <tr>
             <th>#</th>
             <th><?php echo Text::_('MOD_QLJDOWNLOADS_TITLE'); ?></th>
-            <?php if ((bool)$params->get('cat_id_show', 1)): ?>
+            <?php if ((bool)$params->get('cat_column_id_show', 1)): ?>
                 <th><?php echo Text::_('MOD_QLJDOWNLOADS_CATEGORY'); ?></th>
             <?php endif; ?>
             <th><?php echo Text::_('MOD_QLJDOWNLOADS_CREATED'); ?></th>
@@ -39,11 +39,9 @@ $wa->useStyle('qljdownloads');
                 <td>
                     <?php echo $file->id; ?>
                 </td>
-                <td><span class="title"><a
-                                href="<?php echo sprintf('%s/%s/%s', $jdownloads_root, $file->cat_dir, $file->url_download); ?>"
-                                target="_blank"><?php echo $file->title; ?></a></span></td>
-                <?php if ((bool)$params->get('cat_show', 1)): ?>
-                    <td><?php echo $file->cat_title; ?><?php echo (bool)$params->get('cat_id_show', 1) ? ' (' . $file->cat_id . ')' : ''; ?></td>
+                <td><span class="title"><?php echo $file->link; ?></span></td>
+                <?php if ((bool)$params->get('cat_column_show', 1)): ?>
+                    <td><?php echo $file->cat_label; ?></td>
                 <?php endif; ?>
                 <td><?php echo $file->created; ?></td>
             </tr>

@@ -42,6 +42,81 @@
 		<fields name="params" addfieldpath="/modules/mod_qljdownloads/php/fields" addrulepath="/modules/mod_qljdownloads/php/rules">
             <fieldset name="basic">
 				<field
+						name="display"
+						type="radio"
+						class="btn-group"
+						default="file"
+						label="MOD_QLJDOWNLOADS_DISPLAY_LABEL"
+						description="MOD_QLJDOWNLOADS_DISPLAY_DESC">
+					<option value="file">MOD_QLJDOWNLOADS_FILE</option>
+					<option value="category">MOD_QLJDOWNLOADS_CATEGORY</option>
+				</field>
+				<field
+						name="label_scheme"
+						type="list"
+						default="{title} ({id})"
+						label="MOD_QLJDOWNLOADS_LABEL_LABEL"
+						description="MOD_QLJDOWNLOADS_LABEL_DESC">
+					<option value="{title}">MOD_QLJDOWNLOADS_LABEL1</option>
+					<option value="{title} ({id})">MOD_QLJDOWNLOADS_LABEL2</option>
+					<option value="{title} - {cat_title}">MOD_QLJDOWNLOADS_LABEL3</option>
+					<option value="{title} ({id}) - {cat_title}">MOD_QLJDOWNLOADS_LABEL4</option>
+					<option value="{title} ({id}) - {cat_title} ({cat_id})">MOD_QLJDOWNLOADS_LABEL5</option>
+				</field>
+				<field
+						name="target"
+						type="list"
+						default="_blank"
+						label="MOD_QLJDOWNLOADS_TARGET_LABEL"
+						description="MOD_QLJDOWNLOADS_TARGET_DESC">
+					<option value="_blank">MOD_QLJDOWNLOADS_TARGET_NEWWINDOW</option>
+					<option value="_self">MOD_QLJDOWNLOADS_TARGET_SAMEWINDOW</option>
+				</field>
+				<field
+						name="spacer_column"
+						type="space"
+						label="MOD_QLJDOWNLOADS_COLUMN_LABEL"
+						description="MOD_QLJDOWNLOADS_COLUMN_DESC" />
+				<field
+						name="cat_column_show"
+						type="radio"
+						class="btn-group btn-group-yesno"
+						default="0"
+						label="MOD_QLJDOWNLOADS_CATEGORY_LABEL"
+						description="MOD_QLJDOWNLOADS_CATEGORY_DESC">
+					<option value="1">JSHOW</option>
+					<option value="0">JHIDE</option>
+				</field>
+				<field
+						name="cat_label_scheme"
+						type="list"
+						default="{cat_title} ({cat_id})"
+						label="MOD_QLJDOWNLOADS_LABEL_LABEL"
+						description="MOD_QLJDOWNLOADS_LABEL_DESC">
+					<option value="{cat_title}">MOD_QLJDOWNLOADS_LABEL50</option>
+					<option value="{cat_title} ({cat_id})">MOD_QLJDOWNLOADS_LABEL51</option>
+				</field>
+			</fieldset>
+			<fieldset name="file">
+				<field
+						name="file_id_manual"
+						label="MOD_QLJDOWNLOADS_FILEIDMANUAL_LABEL"
+						description="MOD_QLJDOWNLOADS_FILEIDMANUAL_DESC"
+						default="0"
+				/>
+				<field
+						name="file_id_by_list"
+						type="sql"
+						query="SELECT f.id AS file_id, CONCAT(f.title,' (',f.id,' - ',c.title, '#', c.id ,')') AS title FROM #__jdownloads_files f LEFT JOIN #__jdownloads_categories c ON f.catid = c.id WHERE f.published=1 AND c.published=1"
+						key_field="file_id"
+						value_field="title"
+						label="MOD_QLJDOWNLOADS_FILEIDBYLIST_LABEL"
+						description="MOD_QLJDOWNLOADS_FILEIDBYLIST_DESC">
+					<option value="">MOD_QLJDOWNLOADS_SELECTMANUALLY</option>
+				</field>
+			</fieldset>
+			<fieldset name="category">
+				<field
 						name="category_id"
 						type="sql"
 						query="SELECT id AS category_id, CONCAT(title,' (',id,')') AS title FROM #__jdownloads_categories WHERE published=1"
@@ -50,26 +125,6 @@
 						label="MOD_QLJDOWNLOADS_CATEGORY_LABEL"
 						description="MOD_QLJDOWNLOADS_CATEGORY_DESC">
 					<option value="0">JALL</option>
-				</field>
-				<field
-						name="cat_show"
-						type="radio"
-						class="btn-group btn-group-yesno"
-						default="0"
-						label="MOD_QLJDOWNLOADS_CATEGORY_LABEL"
-						description="MOD_QLJDOWNLOADS_CATEGORY_DESC">
-					<option value="1">JSHOW</option>
-					<option value="0">JHIDE</option>
-				</field>
-				<field
-						name="cat_id_show"
-						type="radio"
-						class="btn-group btn-group-yesno"
-						default="0"
-						label="MOD_QLJDOWNLOADS_CATEGORYID_LABEL"
-						description="MOD_QLJDOWNLOADS_CATEGORYID_DESC">
-					<option value="1">JSHOW</option>
-					<option value="0">JHIDE</option>
 				</field>
 				<field
 						name="get_category_id_by_input"
@@ -87,8 +142,7 @@
 						description="MOD_QLJDOWNLOADS_PARAMNAME_DESC" />
             </fieldset>
 
-			<fieldset
-				name="advanced">
+			<fieldset name="advanced">
 				<field
 					name="layout"
 					type="modulelayout"
