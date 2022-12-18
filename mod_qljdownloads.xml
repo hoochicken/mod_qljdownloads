@@ -74,7 +74,7 @@
 				</field>
 				<field
 						name="spacer_column"
-						type="space"
+						type="spacer"
 						label="MOD_QLJDOWNLOADS_COLUMN_LABEL"
 						description="MOD_QLJDOWNLOADS_COLUMN_DESC" />
 				<field
