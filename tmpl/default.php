@@ -27,7 +27,7 @@ $wa->useStyle('qljdownloads');
         <tr>
             <th>#</th>
             <th><?php echo Text::_('MOD_QLJDOWNLOADS_TITLE'); ?></th>
-            <?php if ((bool)$params->get('cat_column_id_show', 1)): ?>
+            <?php if ((bool)$params->get('cat_column_show', 1)): ?>
                 <th><?php echo Text::_('MOD_QLJDOWNLOADS_CATEGORY'); ?></th>
             <?php endif; ?>
             <th><?php echo Text::_('MOD_QLJDOWNLOADS_CREATED'); ?></th>
