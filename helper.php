@@ -19,6 +19,9 @@ class modQljdownloadsHelper
     /** @var DatabaseDriver */
     public $db;
 
+    const JDOWNLOADS_ROOT = 'ROOT';
+    const JDOWNLOADS_FOLDERSEPARATOR = '/';
+
     function __construct($module, $params, $db)
     {
         $this->module = $module;
@@ -33,7 +36,7 @@ class modQljdownloadsHelper
         $query->select('*');
         $query->from('#__jdownloads_categories');
         $query->where('published = 1');
-        if (0 < count($catId)) $query->where(sprintf('catid IN(%s)', implode(',', $catId)));
+        if (0 < count($catId)) $query->where(sprintf('id IN(%s)', implode(',', $catId)));
         $this->db->setQuery($query);
         return $this->db->loadObjectList();
     }
@@ -96,27 +99,49 @@ class modQljdownloadsHelper
         return $value;
     }
 
-    static function enrichFiles($file, $params, $module)
+    public function enrichFile($file, $params, $jdownloads_root = '/jdownloads')
     {
-        $file->href = self::getHref($file->cat_dir, $file->url_download, $params->get('jdownloads_root', '/jdownloads'));
-        $file->label = self::getLabel($params->get('label_scheme', '{title} ({id})'), $file);
-        $file->cat_label = self::getLabel($params->get('cat_label_scheme', '{cat_title} ({cat_id})'), $file);
-        $file->link = self::getHtmlLink($file->href, $file->label, $params->get('target', '_blank'));
+        $this->category_path = [];
+        $file->category_path = $this->getCategoryPath($file->cat_id);
+        krsort($file->category_path);
+        $category_path = $file->category_path;
+        $href = $this->getJdHref($jdownloads_root, $category_path, $file);
+        $file->category_path = json_encode($file->category_path);
+        $file->href = $href;
+        $file->label = $this->getLabel($params->get('label_scheme', '{title} ({id})'), $file);
+        $file->cat_label = $this->getLabel($params->get('cat_label_scheme', '{cat_title} ({cat_id})'), $file);
+        $file->link = $this->getHtmlLink($file->href, $file->label, $params->get('target', '_blank'));
         return $file;
     }
 
-    static public function getHtmlLink($link, $label, $target = '_blank'): string
+    private function getCategoryPath(int $catId): array
+    {
+        if (0 === $catId || 1 === $catId) return $this->category_path;
+        $cat = $this->getJdownloadsCategories([$catId]);
+        if (0 === count($cat)) return $this->category_path;
+        $cat = array_pop($cat);
+        if (0 === $cat->id || 1 === $cat->id || self::JDOWNLOADS_ROOT === $cat->title) return $this->category_path;
+        $this->category_path[] = $cat;
+        return $this->getCategoryPath($cat->parent_id);
+    }
+
+    public function getJdHref(string $jdownloads_root, array $category_path, $file): string
+    {
+        $path = [];
+        foreach ($category_path as $cat) {
+            $path[] = $cat->cat_dir;
+        }
+        $cat_path = implode(self::JDOWNLOADS_FOLDERSEPARATOR, $path);
+        return sprintf('%s/%s/%s', $jdownloads_root, $cat_path, $file->url_download);
+    }
+
+    public function getHtmlLink($link, $label, $target = '_blank'): string
     {
         $targetAttr = !empty($target) ? sprintf('target="%s"', $target) : '';
         return sprintf('<a href="%s" %s>%s</a>', $link, $targetAttr, $label);
     }
 
-    static public function getHref($cat_dir, $url_download, $root = '/jdownloads'): string
-    {
-        return sprintf('%s/%s/%s', $root, $cat_dir, $url_download);
-    }
-
-    static public function getLabel($labelScheme, $file): string
+    public function getLabel($labelScheme, $file): string
     {
         $placeholder = array_keys((array)$file);
         array_walk($placeholder, function (&$item) {

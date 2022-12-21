@@ -31,10 +31,10 @@ $files = ('category' === $params->get('display', 'file'))
     ? $helper->getJdownloadsByCategory($catedoryId)
     : $helper->getJdownloadsByFileId($fileId);
 
-array_walk($files, function(&$item) use ($params, $module) {
-    $item = modQljdownloadsHelper::enrichFiles($item, $params, $module); }
-);
-
 $jdownloads_root = $params->get('jdownloads_root', '/jdownloads');
+foreach ($files as $k => $file) {
+    $files[$k] = $helper->enrichFile($file, $params, $jdownloads_root);
+}
+
 
 require JModuleHelper::getLayoutPath('mod_qljdownloads', $params->get('layout', 'default'));
